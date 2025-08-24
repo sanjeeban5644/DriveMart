@@ -1,6 +1,3 @@
----
-
-```markdown
 # 🚗 DriveMart
 
 DriveMart is a Spring Boot application that provides REST APIs to manage **cars**, **brands**, **colors**, and **engines**. It demonstrates modern backend development practices using **Spring Boot**, **JPA**, **Hibernate**, and **Swagger**.
@@ -64,27 +61,27 @@ DriveMart/
 
 ### ✅ Steps to Run
 1. **Clone the repository**:
-   ```bash
+
    git clone https://github.com/<your-username>/DriveMart.git
    cd DriveMart
-````
+
 
 2. **Configure the database**:
    In `src/main/resources/application.properties`, update:
 
-   ```properties
+   properties
    spring.datasource.url=jdbc:mysql://localhost:3306/drivemart_db
    spring.datasource.username=root
    spring.datasource.password=yourpassword
    spring.jpa.hibernate.ddl-auto=update
-   ```
+   
 
 3. **Build and run the app**:
 
-   ```bash
+   
    mvn clean install
    mvn spring-boot:run
-   ```
+   
 
 4. **Access API Documentation**:
    Open:
@@ -116,46 +113,32 @@ DriveMart/
 
 Add this in `application.properties` for quick testing:
 
-```properties
+properties
 spring.datasource.url=jdbc:h2:mem:drivemart_db
 spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=sa
 spring.datasource.password=
 spring.jpa.hibernate.ddl-auto=create
 spring.h2.console.enabled=true
-```
+
 
 Then access H2 console:
 
-```
-http://localhost:8080/h2-console
-```
 
----
+http://localhost:8080/h2-console
+
+
+
 
 ## ✅ License
 
 This project is licensed under the MIT License.
 
----
+
 
 ### 🔗 Connect
 
 Developed by **Sanjeeban Mukhopadhyay**
 GitHub: [@sanjeeban5644](https://github.com/sanjeeban5644)
 
-````
-
----
-
-✅ Now, do this in your terminal:
-
-```bash
-nano README.md   # (paste the above content, save and exit)
-git add README.md
-git commit -m "Added professional README.md"
-git push origin main
-````
-
----
 
