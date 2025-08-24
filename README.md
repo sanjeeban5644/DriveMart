@@ -130,11 +130,6 @@ http://localhost:8080/h2-console
 
 
 
-## ✅ License
-
-This project is licensed under the MIT License.
-
-
 
 ### 🔗 Connect
 
