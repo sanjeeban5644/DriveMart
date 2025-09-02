@@ -874,10 +874,6 @@
         </h2>
         
         <div class="card">
-            <div class="card-header">
-                <i class="fas fa-plus"></i>
-                Add New Car
-            </div>
             <div class="card-body">
                 <form id="carForm">
                     <!-- Section 1: Basic Car Info -->
@@ -937,7 +933,14 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="form-label">Color Name</label>
-                                <input type="text" class="form-control" name="colorName" required placeholder="e.g., Midnight Blue, Pearl White">
+                                <select class="form-control" name="colorName" required>
+                                    <option value="">-- Select Color --</option>
+                                    <option value="RED">Red</option>
+                                    <option value="BLUE">Blue</option>
+                                    <option value="BLACK">Black</option>
+                                    <option value="WHITE">White</option>
+                                    <option value="SILVER">Silver</option>
+                                </select>
                             </div>
                             <div class="form-group full-width">
                                 <label class="form-label">Color Description</label>
@@ -957,19 +960,18 @@
                                 <label class="form-label">Fuel Type</label>
                                 <select class="form-control" name="fuelType" required>
                                     <option value="">Select Fuel Type</option>
-                                    <option value="gasoline">Gasoline</option>
-                                    <option value="diesel">Diesel</option>
-                                    <option value="electric">Electric</option>
-                                    <option value="hybrid">Hybrid</option>
+                                    <option value="PETROL">Petrol</option>
+                                    <option value="DIESEL">Diesel</option>
+                                    <option value="ELECTRIC">Electric</option>
+                                    <option value="HYBRID">Hybrid</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Transmission</label>
                                 <select class="form-control" name="transmission" required>
                                     <option value="">Select Transmission</option>
-                                    <option value="manual">Manual</option>
-                                    <option value="automatic">Automatic</option>
-                                    <option value="cvt">CVT</option>
+                                    <option value="MANUAL">Manual</option>
+                                    <option value="AUTOMATIC">Automatic</option>
                                 </select>
                             </div>
                         </div>
@@ -1605,7 +1607,7 @@ class CarManager {
     constructor() {
         this.apiBaseUrl = 'http://localhost:8080/cmc';
         this.apiEndpoints = {
-            save: `${this.apiBaseUrl}/saveCars`,
+            save: `${this.apiBaseUrl}/saveCar`,
             getAll: `${this.apiBaseUrl}/showAllCars`,
             delete: (id) => `${this.apiBaseUrl}/delete/${id}`,
             update: (id) => `${this.apiBaseUrl}/update/${id}`
@@ -1624,38 +1626,36 @@ class CarManager {
 
     async handleCarSubmit(e) {
         e.preventDefault();
+
+        const form = e.target;
         
         try {
-            const form = e.target;
+
             
             // Collect form data
             const carData = {
-                // Basic Information
-                model: form.model.value,
-                price: parseFloat(form.price.value),
-                availability: form.availability.value,
-                
-                // Brand Information
-                brand: {
-                    name: form.brandName.value,
-                    countryOfOrigin: form.countryOfOrigin.value,
-                    establishedYear: parseInt(form.establishedYear.value)
-                },
-                
-                // Color Information
-                color: {
-                    name: form.colorName.value,
-                    description: form.colorDescription.value
-                },
-                
-                // Engine Specifications
-                engine: {
-                    fuelType: form.fuelType.value,
-                    transmission: form.transmission.value,
-                    capacity: parseFloat(form.engineCapacity.value),
-                    mileage: parseFloat(form.mileage.value)
+            model: form.model.value,
+            price: form.price.value,
+            availability: form.availability.value,
+            brandInfo: {
+                brandName: form.brandName.value,
+                countryOfOrigin: form.countryOfOrigin.value,
+                establishedYear: form.establishedYear.value
+            },
+            colors: [
+                {
+                    colorName: form.colorName.value,
+                    colorDescription: form.colorDescription.value
                 }
-            };
+            ],
+            engineInfo: {
+                fuelType: form.fuelType.value.toUpperCase(), // Ensure it matches enum (PETROL, DIESEL, etc.)
+                transmission: form.transmission.value.toUpperCase(), // Ensure it matches enum (MANUAL, AUTOMATIC, etc.)
+                capacity: form.engineCapacity.value,
+                mileage: form.mileage.value
+            }
+            // Timestamps might be auto-generated by backend
+        };
 
             // Show loading state
             const submitBtn = form.querySelector('button[type="submit"]');
@@ -1725,9 +1725,9 @@ class CarManager {
                         <i class="fas fa-car"></i>
                     </div>
                 </td>
-                <td>${car.brandId.brandName}</td>
+                <td>${car.brandInfo.brandName}</td>
                 <td>${car.model}</td>
-                <td>$${car.price.toLocaleString()}</td>
+                <td>$${car.price.toLocaleString()}</td>dd
                 <td>
                     <span class="status-badge ${car.availability}">
                         ${car.availability}

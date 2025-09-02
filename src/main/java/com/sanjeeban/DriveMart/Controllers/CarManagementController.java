@@ -29,7 +29,7 @@ public class CarManagementController {
 	ManageCarService manageCarService;
 	
 	@PostMapping("/saveCar")
-	public CMCResponse addCars(@RequestBody AddCarRequest request) {
+	public CMCResponse addCars(@RequestBody Car request) {
 		CMCResponse response = new CMCResponse();
 		
 		if(request==null) {

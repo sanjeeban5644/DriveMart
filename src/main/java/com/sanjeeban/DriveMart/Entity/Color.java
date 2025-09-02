@@ -4,18 +4,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sanjeeban.DriveMart.Enums.ColorType;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(
@@ -30,10 +23,10 @@ public class Color {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long colorId;
-	
-	
+
+	@Enumerated(EnumType.STRING)
 	@Column(nullable=false,length=50)
-	private String colorName;
+	private ColorType colorName;
 	
 	@Column(nullable=false,length=250)
 	private String colorDescription;
@@ -55,9 +48,7 @@ public class Color {
 		super();
 	}
 
-	public Color(Long colorId, String colorName, String colorDescription, LocalDateTime createdAt,
-			LocalDateTime updatedAt) {
-		super();
+	public Color(Long colorId, ColorType colorName, String colorDescription, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		this.colorId = colorId;
 		this.colorName = colorName;
 		this.colorDescription = colorDescription;
@@ -73,11 +64,11 @@ public class Color {
 		this.colorId = colorId;
 	}
 
-	public String getColorName() {
+	public ColorType getColorName() {
 		return colorName;
 	}
 
-	public void setColorName(String colorName) {
+	public void setColorName(ColorType colorName) {
 		this.colorName = colorName;
 	}
 
@@ -104,7 +95,4 @@ public class Color {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
-	
 }

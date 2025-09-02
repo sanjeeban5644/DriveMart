@@ -1,5 +1,6 @@
 package com.sanjeeban.DriveMart.Entity;
 
+import java.awt.color.ColorSpace;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class Car {
 					columnNames = {"car_id","color_id"}
 					)
 			)
-	private List<Color> colors = new ArrayList<>();
+	private List<Color> colors;
 	
 	
 	@CreationTimestamp
